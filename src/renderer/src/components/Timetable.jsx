@@ -37,6 +37,14 @@ function Timetable({ timetable, selectedCell, highlightedCell, onSelect }) {
       }
     })
   });
+
+  const getPeriodBlock = (period) => {
+    if (period % 2 === 1) {
+      return [period, period + 1];
+    }
+    return [period - 1, period];
+  };
+
   return (
     <div className="Timetable container">
       <div className='row'>
@@ -77,7 +85,7 @@ function Timetable({ timetable, selectedCell, highlightedCell, onSelect }) {
                         rowSpan={isSame ? 2 : 1}
                         className={classList.join(' ')}
                         style={isSame ? { borderBottom: '2px solid #888' } : {}}
-                        onClick={() => onSelect({ day: day, period: isSame ? [period, nextPeriod] : [period] })}
+                        onClick={() => onSelect({ day: day, period: getPeriodBlock(period) })}
                       >
                         {cellValue}
                       </td>
